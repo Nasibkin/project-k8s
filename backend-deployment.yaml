@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: gcr.io/avatar-429111/backend@sha256:6d161b67ed0b6e7a5d5f297a190a4fcc095cd8e93e59770a957e9f82b7686616
+          # gcr.io/avatar-429111/backend:newtag
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PGHOST
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: hostname
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: username
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: database
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: password

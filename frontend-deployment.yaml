@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 2  
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: gcr.io/avatar-429111/frontend@sha256:652f70b6b3c4b3b3e15aa8becdbc808972221e3c2f30cc5af59e39445da7c023
+          ports:
+            - containerPort: 80

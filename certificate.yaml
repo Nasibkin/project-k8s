@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: web-ssl-cert
+spec:
+  secretName: web-ssl
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: doctorkarabaeva.com
+  dnsNames:
+  - doctorkarabaeva.com
